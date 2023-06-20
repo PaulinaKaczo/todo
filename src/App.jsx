@@ -47,6 +47,10 @@ function App() {
   //     setTasks(newTasks)
   // }
 
+  function handleDeleteCompleted() {
+    setTasks(tasks.filter((task) => !task.status));
+  }
+
   return (
     <div className="App">
       <Header />
@@ -69,6 +73,13 @@ function App() {
           </li>
         ))}
       </ul>
+      <div>{tasks.filter((task) => !task.status).length} items left</div>
+      {tasks.some((task) => task.status) ? (
+        <button onClick={handleDeleteCompleted}>Clear completed</button>
+      ) : (
+        ""
+      )}
+      {/*{tasks.some((task) => task.status) && (<button>Clear completed</button>)}*/}
     </div>
   );
 }
