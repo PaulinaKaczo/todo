@@ -1,6 +1,11 @@
 import "./App.css";
 import Header from "./components/Header.jsx";
 import { useState } from "react";
+import TaskInput from "./components/TaskInput.jsx";
+import TasksList from "./components/TasksList.jsx";
+import Counter from "./components/Counter.jsx";
+import Filters from "./components/Filters.jsx";
+import ClearTasks from "./components/ClearTasks.jsx";
 
 function App() {
   const [inputValue, setInputValue] = useState("Learn React");
@@ -55,59 +60,22 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <input
-        type="text"
-        value={inputValue}
-        onChange={(event) => setInputValue(event.target.value)}
-        onKeyUp={addTaskHandle}
-        placeholder="What needs to be done?"
+      <TaskInput
+        inputValue={inputValue}
+        setInputValue={setInputValue}
+        addTaskHandle={addTaskHandle}
       />
-      <ul style={{ listStyle: "none", paddingLeft: 0 }}>
-        {tasks
-          // .filter((task) => filter === 'all' ? true : task.status === filter)
-          .filter((task) => {
-            if (filter === "all") return true;
-            //status: false ===false
-            //status: true === true
-            if (task.status === filter) return true;
-            return false;
-          })
-          .map((task) => (
-            <li key={task.id} className="task-item">
-              <span
-                className={task.status ? "status active" : "status"}
-                onClick={() => handleChangeStatus(task)}
-              ></span>
-              <span>{task.name}</span>
-              <button onClick={() => handleDelete(task)}>x</button>
-            </li>
-          ))}
-      </ul>
-      <div>{tasks.filter((task) => !task.status).length} items left</div>
-
-      <div>
-        <button
-          className={filter === "all" ? "current-filter" : ""}
-          onClick={() => setFilter("all")}
-        >
-          All
-        </button>
-        <button
-          className={filter === false ? "current-filter" : ""}
-          onClick={() => setFilter(false)}
-        >
-          Active
-        </button>
-        <button
-          className={filter === true ? "current-filter" : ""}
-          onClick={() => setFilter(true)}
-        >
-          Completed
-        </button>
-      </div>
+      <TasksList
+        tasks={tasks}
+        filter={filter}
+        handleChangeStatus={handleChangeStatus}
+        handleDelete={handleDelete}
+      />
+      <Counter tasks={tasks} />
+      <Filters filter={filter} setFilter={setFilter} />
 
       {tasks.some((task) => task.status) ? (
-        <button onClick={handleDeleteCompleted}>Clear completed</button>
+        <ClearTasks handleDeleteCompleted={handleDeleteCompleted} />
       ) : (
         ""
       )}
