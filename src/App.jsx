@@ -5,6 +5,7 @@ import { useState } from "react";
 function App() {
   const [inputValue, setInputValue] = useState("Learn React");
   const [tasks, setTasks] = useState([]);
+  const [filter, setFilter] = useState("all");
 
   function getID() {
     if (!tasks.length) {
@@ -62,18 +63,49 @@ function App() {
         placeholder="What needs to be done?"
       />
       <ul style={{ listStyle: "none", paddingLeft: 0 }}>
-        {tasks.map((task) => (
-          <li key={task.id}>
-            <span
-              className={task.status ? "status active" : "status"}
-              onClick={() => handleChangeStatus(task)}
-            ></span>
-            <span>{task.name}</span>
-            <button onClick={() => handleDelete(task)}>x</button>
-          </li>
-        ))}
+        {tasks
+          // .filter((task) => filter === 'all' ? true : task.status === filter)
+          .filter((task) => {
+            if (filter === "all") return true;
+            //status: false ===false
+            //status: true === true
+            if (task.status === filter) return true;
+            return false;
+          })
+          .map((task) => (
+            <li key={task.id} className="task-item">
+              <span
+                className={task.status ? "status active" : "status"}
+                onClick={() => handleChangeStatus(task)}
+              ></span>
+              <span>{task.name}</span>
+              <button onClick={() => handleDelete(task)}>x</button>
+            </li>
+          ))}
       </ul>
       <div>{tasks.filter((task) => !task.status).length} items left</div>
+
+      <div>
+        <button
+          className={filter === "all" ? "current-filter" : ""}
+          onClick={() => setFilter("all")}
+        >
+          All
+        </button>
+        <button
+          className={filter === false ? "current-filter" : ""}
+          onClick={() => setFilter(false)}
+        >
+          Active
+        </button>
+        <button
+          className={filter === true ? "current-filter" : ""}
+          onClick={() => setFilter(true)}
+        >
+          Completed
+        </button>
+      </div>
+
       {tasks.some((task) => task.status) ? (
         <button onClick={handleDeleteCompleted}>Clear completed</button>
       ) : (

@@ -22,3 +22,22 @@
 .active + span {
   text-decoration: line-through;
 }
+
+.current-filter {
+  border: 1px solid blue;
+}
+
+.task-item {
+  display: flex;
+  margin-bottom: 10px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.task-item button{
+  opacity: 0;
+}
+
+.task-item:hover button{
+  opacity: 1;
+}
