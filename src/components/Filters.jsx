@@ -2,7 +2,7 @@ import React from "react";
 
 function Filters({ filter, setFilter }) {
   return (
-    <div>
+    <div className="btn_filter">
       <button
         className={filter === "all" ? "current-filter" : ""}
         onClick={() => setFilter("all")}
