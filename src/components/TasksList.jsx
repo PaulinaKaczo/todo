@@ -3,7 +3,7 @@ import Task from "./Task";
 
 function TasksList({ tasks, filter, handleChangeStatus, handleDelete }) {
   return (
-    <ul style={{ listStyle: "none", paddingLeft: 0 }}>
+    <ul className="tasks_list" style={{ listStyle: "none", paddingLeft: 0 }}>
       {tasks
         // .filter((task) => filter === 'all' ? true : task.status === filter)
         .filter((task) => {

@@ -8,7 +8,9 @@ function Task({ task, handleChangeStatus, handleDelete }) {
         onClick={() => handleChangeStatus(task)}
       ></span>
       <span>{task.name}</span>
-      <button onClick={() => handleDelete(task)}>x</button>
+      <button className="btn_delete" onClick={() => handleDelete(task)}>
+        x
+      </button>
     </li>
   );
 }

@@ -1,4 +1,3 @@
-import "./App.css";
 import Header from "./components/Header.jsx";
 import { useState } from "react";
 import TaskInput from "./components/TaskInput.jsx";
@@ -8,7 +7,7 @@ import Filters from "./components/Filters.jsx";
 import ClearTasks from "./components/ClearTasks.jsx";
 
 function App() {
-  const [inputValue, setInputValue] = useState("Learn React");
+  const [inputValue, setInputValue] = useState("");
   const [tasks, setTasks] = useState([]);
   const [filter, setFilter] = useState("all");
 
@@ -58,28 +57,34 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <Header />
-      <TaskInput
-        inputValue={inputValue}
-        setInputValue={setInputValue}
-        addTaskHandle={addTaskHandle}
-      />
-      <TasksList
-        tasks={tasks}
-        filter={filter}
-        handleChangeStatus={handleChangeStatus}
-        handleDelete={handleDelete}
-      />
-      <Counter tasks={tasks} />
-      <Filters filter={filter} setFilter={setFilter} />
+    <div className="app_wrapper--third">
+      <div className="app_wrapper--secondary">
+        <div className="app_wrapper--main">
+          <Header />
+          <TaskInput
+            inputValue={inputValue}
+            setInputValue={setInputValue}
+            addTaskHandle={addTaskHandle}
+          />
+          <TasksList
+            tasks={tasks}
+            filter={filter}
+            handleChangeStatus={handleChangeStatus}
+            handleDelete={handleDelete}
+          />
+          <div className="buttons">
+            <Counter tasks={tasks} />
+            <Filters filter={filter} setFilter={setFilter} />
 
-      {tasks.some((task) => task.status) ? (
-        <ClearTasks handleDeleteCompleted={handleDeleteCompleted} />
-      ) : (
-        ""
-      )}
-      {/*{tasks.some((task) => task.status) && (<button>Clear completed</button>)}*/}
+            {tasks.some((task) => task.status) ? (
+              <ClearTasks handleDeleteCompleted={handleDeleteCompleted} />
+            ) : (
+              ""
+            )}
+            {/*{tasks.some((task) => task.status) && (<button>Clear completed</button>)}*/}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
